@@ -1,0 +1,135 @@
+<!-- 1. build the canvas with an id, height and width to start from and select
+2. select canvas.
+3. redefine height and width.
+4. set other features such as linewidth, style, cap and join
+4. declare values of other features such as where the line will begin on the screen.
+5. declare a variable to turn on and off for drawing itself (ie true or false)
+6. decide which event listeners to add to the mouse since the mouse is a dynamic component.
+7. the event listeners will listen for the mouses specified activity and then will implement a function to set isDrawing to true or false.
+ isDrawing still have yet to be defined.
+8. create a function that logs the movement of the mouse
+9. add to the function new values for the context and where the mouse starts and where it moves to with the mouse
+10. the function sets or changes the values of the different attributes based on the mouses activity-->
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Document</title>
+</head>
+<body>
+<!--   step 1 - build the canvas -->
+  <canvas id="draw" width="800" height="800" style="border: 5px solid pink; background-color: black;"></canvas>
+  <script>
+  // //step 2 - select the canvas to apply JS and set the basic features
+  //   const canvas = document.querySelector('#draw');
+  //   const ctx = canvas.getContext('2d');
+  //   canvas.width = window.innerWidth;
+  //   canvas.height = window.innerHeight;
+  //   canvas.strokeStyle = '#BADA55';
+  //   canvas.lineWidth = 50;
+  //   canvas.lineJoin = 'rounded';
+  //   canvas.lineCap = 'rounded';
+
+  // //step 3 - define the variables
+  // let isDrawing = false;
+  // let lastX = 0;
+  // let lastY = 0;
+  // let hue = 0;
+  // let direction = true;
+
+  // //step 4 - create a function to draw
+  // function draw(e) {
+  //   if(!isDrawing) return;
+  //   console.log(e);
+  //   ctx.beginPath();
+  //   ctx.strokeStyle = `hsl(${hue}, 100%, 50%)`;
+  //   ctx.moveTo(lastX, lastY);
+  //   ctx.lineTo(e.offsetX, e.offsetY);
+  //   ctx.stroke();
+  //   [lastX, lastY] = [e.offsetX, e.offsetY];
+  // }
+
+  // hue++;
+  // if (hue >= 360) {
+  //   hue = 0;
+  // }
+  // if (ctx.lineWidth >= 100 || ctx.lineWidth <= 1) {
+  //   direction = !direction;
+  // }
+  // if(direction) {
+  //   ctx.lineWidth++;
+  // } else {
+  //   ctx.lineWidth--;
+  // }
+
+
+  // //step 5 - add eventlistener
+  // canvas.addEventListener('mousedown', (e) => {
+  //   isDrawing = true
+  // [lastX, lastY] = [e.offsetX, e.offsetY];
+  // });
+
+  // canvas.addEventListener('mousemove', draw) // when the mouse moves the draw function will be activated
+  // canvas.addEventListener('mouseup', () => isDrawing = false);
+  // canvas.addEventListener('mouseout', () => isDrawing = false);
+
+const canvas = document.querySelector('#draw');
+const ctx = canvas.getContext('2d');
+canvas.width = window.innerWidth;
+canvas.height = window.innerHeight;
+ctx.strokeStyle = '#BADA55';
+ctx.lineJoin = 'round';
+ctx.lineCap = 'round';
+ctx.lineWidth = 100;
+// ctx.globalCompositeOperation = 'multiply';
+
+let isDrawing = false;
+let lastX = 0;
+let lastY = 0;
+let hue = 0;
+let direction = true;
+
+function draw(e) {
+  if (!isDrawing) return; // stop the fn from running when they are not moused down
+  console.log(e);
+  ctx.strokeStyle = `hsl(${hue}, 100%, 50%)`;
+  ctx.beginPath();
+  // start from
+  ctx.moveTo(lastX, lastY);
+  // go to
+  ctx.lineTo(e.offsetX, e.offsetY);
+  ctx.stroke();
+  [lastX, lastY] = [e.offsetX, e.offsetY];
+
+  hue++;
+  if (hue >= 360) {
+    hue = 0;
+  }
+  if (ctx.lineWidth >= 100 || ctx.lineWidth <= 1) {
+    direction = !direction;
+  }
+
+  if(direction) {
+    ctx.lineWidth++;
+  } else {
+    ctx.lineWidth--;
+  }
+
+}
+
+canvas.addEventListener('mousedown', (e) => {
+  isDrawing = true;
+  [lastX, lastY] = [e.offsetX, e.offsetY];
+});
+
+
+canvas.addEventListener('mousemove', draw);
+canvas.addEventListener('mouseup', () => isDrawing = false);
+canvas.addEventListener('mouseout', () => isDrawing = false);
+  </script>
+
+
+</body>
+</html>
