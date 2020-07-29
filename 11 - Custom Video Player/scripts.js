@@ -42,19 +42,12 @@ const screenButton = player.querySelector('.screen_toggle')
 }
 
   function fullScreen(e) {
-  if (video.fullscreenElement) {
-    video.exitFullscreen();
+    if(video.requestFullscreen() || video.webkitRequestFullScreen || video.mozRequestFullScreen || video.msRequestFullscreen) {
+       video.exitFullscreen();
   } else {
-    const rfs = video.requestFullscreen() || video.webkitRequestFullScreen || video.mozRequestFullScreen || video.msRequestFullscreen;
-    rfs.call(video);
-  }
+       video.requestFullscreen() || video.webkitRequestFullScreen || video.mozRequestFullScreen || video.msRequestFullscreen;
+    }
 }
-
-  function updateScreenButton() {
-    const screenIcon = this.open? '⚀' : '⚁';
-    screenButton.textContent = screenIcon;
-  }
-
 
 
 // set up event listeners
@@ -63,8 +56,6 @@ video.addEventListener('play', updateButton);
 video.addEventListener('pause', updateButton);
 video.addEventListener('timeupdate', handleProgress);
 screenButton.addEventListener('click', fullScreen);
-video.addEventListener('fullscreenchange', fullScreen);
-screenButton.addEventListener('click', updateScreenButton);
 
 toggle.addEventListener('click', togglePlay);
 skipButtons.forEach(button => button.addEventListener('click', skip));
