@@ -6,17 +6,9 @@ const progressBar = player.querySelector('.progress__filled');
 const toggle = player.querySelector('.toggle');
 const skipButtons = player.querySelectorAll('[data-skip]');
 const ranges = player.querySelectorAll('.player__slider');
+// const screen = player.getElementsByTagName('video')[0].webkitEnterFullscreen();
+const screenButton = player.querySelector('.screen_toggle')
 
-
-// // build our functions
-// // if button on play video
-// // function togglePlay() {
-// //   if(video.paused) {
-// //     video.play();
-// //   } else {
-// //     video.pause();
-// //     }
-// //   }
 
   function togglePlay() {
   const method = video.paused ? 'play' : 'pause';
@@ -44,12 +36,45 @@ const ranges = player.querySelectorAll('.player__slider');
 }
 
   function scrub(e) {
-    const scrubTime = (e.offsetX / progress.offsetWidth) * video.duration;
-    video.currentTime = scrubTime; //updates video to current time according to where the scrub brought you
-    console.log(e);
-  }
+  const scrubTime = (e.offsetX / progress.offsetWidth) * video.duration;
+  video.currentTime = scrubTime; //updates video to current time according to where the scrub brought you
+  console.log(e);
+}
+
+  function fullScreen() {
+  const fullScreen = video.isFullScreen;
+  console.log(fullScreen);
+  if(screen.enabled);
+}
+
+//   function updateScreenButton() {
+//   const screenIcon = this.isFullScreen ? '⚀' : '⚁';
+//   console.log(screenIcon);
+//   screenButton.textContent = screenIcon;
+// }
+    // const requestMethod = video.requestFullscreen()
+    // if(requestMethod)
+    // video.exitFullScreen()
 
 
+  //   console.log(video.fullscreenElement);
+  //   console.log('test');
+  //    if(screen.fullscreenElement) {
+  //   console.log(`Element: ${video.fullscreenElement} entered fullscreen mode.`);
+  // } else {
+  //   console.log('Leaving full-screen mode.');
+  // }
+
+  // function fullScreenMode() {
+  //   const requestMethod = video.requestFullscreen()
+  //   if(requestMethod)
+  //   video.exitFullScreen()
+  // }
+
+  // function updateScreenButton() {
+  //   const screenIcon = this.open? '⚀' : '⚁';
+  //   screenButton.textContent = screenIcon;
+  // }
 
 
 
@@ -58,6 +83,10 @@ video.addEventListener('click', togglePlay);
 video.addEventListener('play', updateButton);
 video.addEventListener('pause', updateButton);
 video.addEventListener('timeupdate', handleProgress);
+video.addEventListener('click', fullScreen);
+video.addEventListener('fullscreenchange', fullScreen);
+// screenButton.addEventListener('click', updateScreenButton);
+
 toggle.addEventListener('click', togglePlay);
 skipButtons.forEach(button => button.addEventListener('click', skip));
 ranges.forEach(range => range.addEventListener('change', handleRangeUpdate));
