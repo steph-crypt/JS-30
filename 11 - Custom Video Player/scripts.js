@@ -6,17 +6,9 @@ const progressBar = player.querySelector('.progress__filled');
 const toggle = player.querySelector('.toggle');
 const skipButtons = player.querySelectorAll('[data-skip]');
 const ranges = player.querySelectorAll('.player__slider');
+// const screen = player.getElementsByTagName('video')[0].webkitEnterFullscreen();
+const screenButton = player.querySelector('.screen_toggle')
 
-
-// // build our functions
-// // if button on play video
-// // function togglePlay() {
-// //   if(video.paused) {
-// //     video.play();
-// //   } else {
-// //     video.pause();
-// //     }
-// //   }
 
   function togglePlay() {
   const method = video.paused ? 'play' : 'pause';
@@ -44,13 +36,18 @@ const ranges = player.querySelectorAll('.player__slider');
 }
 
   function scrub(e) {
-    const scrubTime = (e.offsetX / progress.offsetWidth) * video.duration;
-    video.currentTime = scrubTime; //updates video to current time according to where the scrub brought you
-    console.log(e);
-  }
+  const scrubTime = (e.offsetX / progress.offsetWidth) * video.duration;
+  video.currentTime = scrubTime; //updates video to current time according to where the scrub brought you
+  console.log(e);
+}
 
-
-
+  function fullScreen(e) {
+    if(video.requestFullscreen() || video.webkitRequestFullScreen || video.mozRequestFullScreen || video.msRequestFullscreen) {
+       video.exitFullscreen();
+  } else {
+       video.requestFullscreen() || video.webkitRequestFullScreen || video.mozRequestFullScreen || video.msRequestFullscreen;
+    }
+}
 
 
 // set up event listeners
@@ -58,6 +55,8 @@ video.addEventListener('click', togglePlay);
 video.addEventListener('play', updateButton);
 video.addEventListener('pause', updateButton);
 video.addEventListener('timeupdate', handleProgress);
+screenButton.addEventListener('click', fullScreen);
+
 toggle.addEventListener('click', togglePlay);
 skipButtons.forEach(button => button.addEventListener('click', skip));
 ranges.forEach(range => range.addEventListener('change', handleRangeUpdate));
