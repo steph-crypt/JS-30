@@ -41,40 +41,19 @@ const screenButton = player.querySelector('.screen_toggle')
   console.log(e);
 }
 
-  function fullScreen() {
-  const fullScreen = video.isFullScreen;
-  console.log(fullScreen);
-  if(screen.enabled);
+  function fullScreen(e) {
+  if (video.fullscreenElement) {
+    video.exitFullscreen();
+  } else {
+    const rfs = video.requestFullscreen() || video.webkitRequestFullScreen || video.mozRequestFullScreen || video.msRequestFullscreen;
+    rfs.call(video);
+  }
 }
 
-//   function updateScreenButton() {
-//   const screenIcon = this.isFullScreen ? '⚀' : '⚁';
-//   console.log(screenIcon);
-//   screenButton.textContent = screenIcon;
-// }
-    // const requestMethod = video.requestFullscreen()
-    // if(requestMethod)
-    // video.exitFullScreen()
-
-
-  //   console.log(video.fullscreenElement);
-  //   console.log('test');
-  //    if(screen.fullscreenElement) {
-  //   console.log(`Element: ${video.fullscreenElement} entered fullscreen mode.`);
-  // } else {
-  //   console.log('Leaving full-screen mode.');
-  // }
-
-  // function fullScreenMode() {
-  //   const requestMethod = video.requestFullscreen()
-  //   if(requestMethod)
-  //   video.exitFullScreen()
-  // }
-
-  // function updateScreenButton() {
-  //   const screenIcon = this.open? '⚀' : '⚁';
-  //   screenButton.textContent = screenIcon;
-  // }
+  function updateScreenButton() {
+    const screenIcon = this.open? '⚀' : '⚁';
+    screenButton.textContent = screenIcon;
+  }
 
 
 
@@ -83,9 +62,9 @@ video.addEventListener('click', togglePlay);
 video.addEventListener('play', updateButton);
 video.addEventListener('pause', updateButton);
 video.addEventListener('timeupdate', handleProgress);
-video.addEventListener('click', fullScreen);
+screenButton.addEventListener('click', fullScreen);
 video.addEventListener('fullscreenchange', fullScreen);
-// screenButton.addEventListener('click', updateScreenButton);
+screenButton.addEventListener('click', updateScreenButton);
 
 toggle.addEventListener('click', togglePlay);
 skipButtons.forEach(button => button.addEventListener('click', skip));
