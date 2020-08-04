@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+ <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
@@ -58,33 +58,42 @@
       };
     }
 
-    const sliderImages = document.querySelector('.slide-in');
+ //    const sliderImages = document.querySelector('.slide-in');
 
+ //    function checkSlide() {
+ //      sliderImages.forEach(sliderImage => {
+ //        const slideInAt = (window.scrollY + window.innerHeight) - sliderImage.height / 2;
+ //        console.log(slideInAt);
+ //        const imageBottom = sliderImage.offsetTop + sliderImage.height; //marks the pixel level/count at the bottom of the image
+ //        const isHalfShown = slideInAt > sliderImage.offsetTop; //the user has scrolled to a point that is further than wheere the image begins
+ //        const isNotScrolledPast = window.scrollY < imageBottom; //did not scroll past the bottom of the image
+ //        if(isHalfShown && isNotScrolledPast) {
+ //          sliderImage.classList.add('active');
+ //        } else {
+ //          sliderImage.classList.remove('active');
+ //        }
+ // });
+ //  }
 
-    function checkSlide(e) {
-  //   sliderImages.forEach(slideImage => {
-    const slideInAt = (window.scrollY + window.innerHeight) - (slideImage.height / 2);
-    console.log(slideInAt);
-    const imageBottom = slideImage.offsetTop + slideImage.height;
-  //   });
+    // window.addEventListener('scroll', debounce(checkSlide));
 
-  }
+    const sliderImages = document.querySelectorAll('.slide-in');
 
-  // function checkSlide() {
-  //     // sliderImages.forEach(sliderImage => {
-  //       // half way through the image
-  //       const slideInAt = (window.scrollY + window.innerHeight) - sliderImage.height / 2;
-  //       // bottom of the image
-  //       // const imageBottom = sliderImage.offsetTop + sliderImage.height;
-  //       // const isHalfShown = slideInAt > sliderImage.offsetTop;
-  //       // const isNotScrolledPast = window.scrollY < imageBottom;
-  //       // if (isHalfShown && isNotScrolledPast) {
-  //       //   sliderImage.classList.add('active');
-  //       // } else {
-  //       //   sliderImage.classList.remove('active');
-  //       // }
-  //     });
-  //   // }
+    function checkSlide() {
+      sliderImages.forEach(sliderImage => {
+        // half way through the image
+        const slideInAt = (window.scrollY + window.innerHeight) - sliderImage.height / 2;
+        // bottom of the image
+        const imageBottom = sliderImage.offsetTop + sliderImage.height;
+        const isHalfShown = slideInAt > sliderImage.offsetTop;
+        const isNotScrolledPast = window.scrollY < imageBottom;
+        if (isHalfShown && isNotScrolledPast) {
+          sliderImage.classList.add('active');
+        } else {
+          sliderImage.classList.remove('active');
+        }
+      });
+    }
 
     window.addEventListener('scroll', debounce(checkSlide));
 
