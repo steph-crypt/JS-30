@@ -27,23 +27,57 @@
   </div>
 
 <script>
-const addItems = document.querySelector('.addItems');
-const itemsList = document.querySelector('.plates');
-const items = [];
+  //to do:
+  //1- select the form
+  const addItems = document.querySelector('.add-items');
+  //2- select the list that the form input will appear in
+  const itemsList = document.querySelector('.plates');
+  //3- create an empty array for new items to be pushed into
+  const items = [];
+  //4- add event listener to the form
+  //5- create an addItems function
+
+  function addItems(e) {
+    //6- the function should select the text input element and the value that the user has input
+    const text = (this.querySelector('[name=item]')).value;
+    //7 - the function should create categories for input. One text, one for the check box which will be a bollion.
+    const item = {
+      text,
+      done: false;
+    };
+    //8 - push the input from the object into the items array
+    items.push(item);
+  }
+  addItems.addEventListener('submit', addItems);
+
+
+
+
+
+
+
+
+
+
+
+
+const addItems = document.querySelector('.addItems'); //grabs the form for input
+const itemsList = document.querySelector('.plates'); //grabs the list items (will grab whateever items are added to the list)
+const items = []; //an empty array inwhich to put the the items.
 
 function addItem(e) {
-e.preventDefault();
-const text = this.querySelector('[name=item]').value;
+e.preventDefault(); //prevents page from reloading everytime there is a form submission
+const text = this.querySelector('[name=item]').value; //the input/value that the users has written in the text box.
 const item = {
   text,
   done: false;
-  };
+  }; // item will include the categories of a text input from the user as well a checkbox.
 
 console.log(items.push(item));
 
 }
 
-addItems.addEventListener('submit', addItem);
+addItems.addEventListener('submit', addItem); //on the form listens for submit and triggers function
 
 </script>
 
