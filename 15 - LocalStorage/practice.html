@@ -37,18 +37,56 @@
   //4- add event listener to the form
   //5- create an addItems function
 
-  function addItems(e) {
-    //6- the function should select the text input element and the value that the user has input
+  function addItem(e) {
+    //6- prevent the page from reloading everytime you input an item
+    e.preventDefault();
+    //7- the function should select the text input element and the value that the user has input
     const text = (this.querySelector('[name=item]')).value;
-    //7 - the function should create categories for input. One text, one for the check box which will be a bollion.
+    //8 - the function should create categories for input. One text, one for the check box which will be a bollion.
     const item = {
       text,
-      done: false;
+      done: false
     };
-    //8 - push the input from the object into the items array
+    //9 - push the input from the object into the items array
     items.push(item);
+    populateList(itemsList, items);
+    //11- go into local storage to set the items in the storage memory.
+    // --> stringify the items so that you can see the items in the array with JSON.Stringify
+    localStorage.setItem('items', JSON.stringify(items));
+    //10 - reset input box
+    this.reset();
   }
-  addItems.addEventListener('submit', addItems);
+
+  //12 - populate the list with the items in localstorage.
+  //13 - create populate list function, pass in two arguments for itemsList and items(by any name)
+  // function populateList(platesList, plates) {
+  //   //the inner HTML of the platelist - iterate through the plates array.
+  //   //pass in two arguments - plate and index. Index will be used for the checkbox.
+  //   platesList.innerHTML = plates.map((plate, i) => {
+  //     return //return the html list you want for the checkbox and add checkbox ternerary operator);
+  //     `
+  //       <li>
+  //         <input type="checkbox" data-index=${i} id="item${i}" ${plate.done ? 'checked' : ''} />
+  //         <label for="item${i}">${plate.text}</label>
+  //       </li>
+  //     `;
+  //     //concatenate the string of input
+  //   }).join('');
+  //   // add populateList function to addItems function to be triggered after item is pushed.
+  //   //  --> pass in original variables in place of plateslist and plates.
+
+ function populateList(plates = [], platesList) {
+    platesList.innerHTML = plates.map((plate, i) => {
+      return `
+        <li>
+          <input type="checkbox" data-index=${i} id="item${i}" ${plate.done ? 'checked' : ''} />
+          <label for="item${i}">${plate.text}</label>
+        </li>
+      `;
+    }).join('');
+  }
+
+  addItems.addEventListener('submit', addItem);
 
 
 
@@ -61,23 +99,35 @@
 
 
 
-const addItems = document.querySelector('.addItems'); //grabs the form for input
-const itemsList = document.querySelector('.plates'); //grabs the list items (will grab whateever items are added to the list)
-const items = []; //an empty array inwhich to put the the items.
+// const addItems = document.querySelector('.addItems'); //grabs the form for input
+// const itemsList = document.querySelector('.plates'); //grabs the list items (will grab whateever items are added to the list)
+// const items = []; //an empty array inwhich to put the the items.
 
-function addItem(e) {
-e.preventDefault(); //prevents page from reloading everytime there is a form submission
-const text = this.querySelector('[name=item]').value; //the input/value that the users has written in the text box.
-const item = {
-  text,
-  done: false;
-  }; // item will include the categories of a text input from the user as well a checkbox.
+// function addItem(e) {
+// e.preventDefault(); //prevents page from reloading everytime there is a form submission
+// const text = this.querySelector('[name=item]').value; //the input/value that the users has written in the text box.
+// const item = {
+//   text,
+//   done: false;
+//   }; // item will include the categories of a text input from the user as well a checkbox.
 
-console.log(items.push(item));
+// console.log(items.push(item));
 
-}
+// }
 
-addItems.addEventListener('submit', addItem); //on the form listens for submit and triggers function
+function populateList(plates = [], platesList) { //has an empty array and a list as arguments
+    platesList.innerHTML = plates.map((plate, i) => { //writes html for the list of plates/items. Maps through each plate and it's index.
+      return `
+        <li>
+          <input type="checkbox" data-index=${i} id="item${i}" ${plate.done ? 'checked' : ''} />
+          <label for="item${i}">${plate.text}</label>
+        </li>
+      `; //returns a list item with a checkbox and name category. the checkbox will be linked to the index of the item.
+          // the item with the same id will have the user's input as text.
+    }).join(''); //concatenates all the items in the array into one big string.
+  }
+
+// addItems.addEventListener('submit', addItem); //on the form listens for submit and triggers function
 
 </script>
 
