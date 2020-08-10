@@ -49,7 +49,7 @@
     };
     //9 - push the input from the object into the items array
     items.push(item);
-    populateList(itemsList, items);
+    populateList(items, itemsList);
     //11- go into local storage to set the items in the storage memory.
     // --> stringify the items so that you can see the items in the array with JSON.Stringify
     localStorage.setItem('items', JSON.stringify(items));
@@ -76,6 +76,7 @@
   //   //  --> pass in original variables in place of plateslist and plates.
 
  function populateList(plates = [], platesList) {
+  console.log(plates);
     platesList.innerHTML = plates.map((plate, i) => {
       return `
         <li>
