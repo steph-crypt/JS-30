@@ -33,7 +33,7 @@
   //2- select the list that the form input will appear in
   const itemsList = document.querySelector('.plates');
   //3- create an empty array for new items to be pushed into
-  const items = [];
+  const items = JSON.parse(localStorage.getItem('items')) || [];
   //4- add event listener to the form
   //5- create an addItems function
 
@@ -86,8 +86,28 @@
       `;
     }).join('');
   }
+//14 set localstorage so that list is saved when reloading.
+//15 - set items so that it either gets items from local storage on reload or produces empty array
+// - remains checked after adding new item. Does not refresh after adding new item.
+//16 - persist in toggling the checkbox
 
-  addItems.addEventListener('submit', addItem);
+function toggleCheckbox(e) {
+  if(!e.target.matches('input')) return;
+  const el = e.target;
+  const index = el.dataset.index;
+  items[index].done = !items[index].done
+  localStorage.setItem('items', JSON.stringify(items));
+  populateList(items, itemsList);
+}
+
+addItems.addEventListener('submit', addItem);
+itemsList.addEventListener('click', toggleCheckbox);
+populateList(items, itemsList);
+
+
+
+
+
 
 
 
