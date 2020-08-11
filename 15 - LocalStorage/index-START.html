@@ -67,8 +67,28 @@ function toggleDone(e) {
   populateList(items, itemsList);
 }
 
+function createBtn() {
+  const doneArray = items.filter(item => item.done);
+  if(doneArray.length > 1) {
+   console.log('button time');
+  }
+
+
+// 1. Create the button if more than one item gets toggled let button appear
+// create an untoggle button
+// 2. Make sure that the button doesnt get produced everytime an item is added.
+
+}
+//   // untoggle button should select all items on the list and set them to false
+//   //should save done status to local storage
+//   //should populate list
+
+
+
+
   addItems.addEventListener('submit', addItem);
   itemsList.addEventListener('click', toggleDone);
+  // untoggleBtn.addEventListener('click', untoggle);
 
  populateList(items, itemsList);
 
