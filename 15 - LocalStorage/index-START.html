@@ -26,9 +26,11 @@
   </div>
 
 <script>
+const untoggleBtn = document.createElement('button');
 const addItems = document.querySelector('.add-items');
 const itemsList = document.querySelector('.plates');
 const items = JSON.parse(localStorage.getItem('items')) || [];
+
 
 
 function addItem(e) {
@@ -65,20 +67,29 @@ function toggleDone(e) {
   items[index].done = !items[index].done;
   localStorage.setItem('items', JSON.stringify(items));
   populateList(items, itemsList);
-}
 
-function createBtn() {
   const doneArray = items.filter(item => item.done);
   if(doneArray.length > 1) {
-   console.log('button time');
-  }
+  localStorage.setItem('doneArray', JSON.stringify(doneArray));
+  const untoggleBtn = document.createElement('button');
+  untoggleBtn.innerHTML = "Uncheck All";
+  const form = document.querySelector('.add-items');
+  form.appendChild(untoggleBtn);
+  } else {
+  untoggleBtn.style.display = 'none';
+  };
+}
+
+function uncheckAll() {
+  console.log('button');
+}
+
+
 
 
 // 1. Create the button if more than one item gets toggled let button appear
 // create an untoggle button
 // 2. Make sure that the button doesnt get produced everytime an item is added.
-
-}
 //   // untoggle button should select all items on the list and set them to false
 //   //should save done status to local storage
 //   //should populate list
@@ -88,7 +99,8 @@ function createBtn() {
 
   addItems.addEventListener('submit', addItem);
   itemsList.addEventListener('click', toggleDone);
-  // untoggleBtn.addEventListener('click', untoggle);
+  untoggleBtn.addEventListener ('click', uncheckAll);
+
 
  populateList(items, itemsList);
 
