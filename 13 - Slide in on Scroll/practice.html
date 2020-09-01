@@ -60,7 +60,7 @@
     sliderImages.forEach(sliderImage => {
       const slideInAt = (window.scrollY + window.innerHeight) - sliderImage.height / 2;
       const imageBottom = sliderImage.offsetTop + sliderImage.height;
-      const isHalfShown = window.scrollY > sliderImage.offSetTop;
+      const isHalfShown = slideInAt > sliderImage.offSetTop;
       const isNotScrolledPast = window.scrollY < imageBottom;
       if(isHalfShown && isNotScrolledPast) {
         sliderImage.classList.add(".active")
@@ -70,7 +70,7 @@
     });
   }
 
-  sliderImages.addEventListener('scroll', debounce(checkSlide));
+  window.addEventListener('scroll', debounce(checkSlide));
 
 
 
