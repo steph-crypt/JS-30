@@ -32,21 +32,29 @@ function handleProgress() {
   progressBar.style.flexBasis = `${percent}%`;
 }
 
+function scrub(e) {
+  const scrubTime = (e.offsetX / progress.offsetWidth) * video.duration;
+  video.currentTime = scrubTime;
+}
 
-
-
-
-
-
+function fullScreen() {
+  const fullScreenRequest = video.requestFullscreen() || || video.webkitRequestFullScreen || video.mozRequestFullScreen || video.msRequestFullscreen;
+  fullScreenRequest ? video.exitFullscreen() : fullScreenRequest;
+}
 
 
 video.addEventlistener('click', togglePlay);
 video.addEventlistener('play', updateButton);
 video.addEventlistener('pause', updateButton);
 video.addEventlistener('timeUpdate', handleProgress);
+screenButton.addEventlistener('click', fullScreen);
+
 skipButtons.forEach(skipButton => skipButton.addEventlistener('click', skip));
 ranges.forEach(range => range.addEventlistener('change', handleRangeUpdate));
 ranges.forEach(range => range.addEventlistener('mousemove', handleRangeUpdate));
+
+progress.addEventlistener('click', scrub);
+
 
 
 
