@@ -7,9 +7,6 @@
 <body>
 <script>
     // start with strings, numbers and booleans
-   let num = 4000;
-   let num2 = num;
-   num = 1000;
 
     // let name = 'Wes';
     // let name2 = name;
@@ -19,15 +16,17 @@
 
 
     // Let's say we have an array
-    let babies = [Emmie, Ellie, Paige, Hugo];
+    const ojCase = ['robert', 'juice', 'marcia', 'nicole']
 
     // and we want to make a copy of it.
-    const babies2 = babies
-    babies2[0] = "Beyonce"
+
+    const ojCase2 = ojCase
+
     //changes original array
 
     // You might think we can just do something like this:
     // team[3] = 'Lux';
+    ojCase[2] = 'boyfriend'
 
     // however what happens when we update that array?
 
@@ -39,51 +38,38 @@
 
     // So, how do we fix this? We take a copy instead!
     //1)
-    let babies3 = babies.slice();
+
     // one way
     //2)
-    const babies5 = [].concat(babies);
+
     // or use the new ES6 Spread
     //3)
-    let babies5 = [...babies];
-    //4)
-    const babies6 = Array.from(babies);
+
+    //4
+
 
     // now when we update it, the original one isn't changed
-    babies6[2] = "Bill Clinton"
+
     //changes only the copy. Does not reference the original aray.
 
     // The same thing goes for objects, let's say we have a person object
-    const sofia = {
-      age: 31,
-      sign: 'Gemini'
-    };
+
 
     // with Objects
-  const lilSophia = sofia;
+
     // and think we make a copy:
     // const captain = person;
     // captain.number = 99;
-    lilSophia.age = 14;
+
 
     // how do we take a copy instead?
 
-    const sophia = Object.assign({}, sofia {age: 14, sign: 'cancer'});
+
 
     // We will hopefully soon see the object ...spread
     // const cap3 = {...person};
-const wes = {
-      name: 'Wes',
-      age: 100,
-      social: {
-        twitter: '@wesbos',
-        facebook: 'wesbos.developer'
-      }
-    };
 
-    const dev = Object.assign({}, wes);
 
-    const dev2 = JSON.parse(JSON.stringify(wes));
     // Things to note - this is only 1 level deep - both for Arrays and Objects. lodash has a cloneDeep method, but you should think twice before using it.
 
 </script>
