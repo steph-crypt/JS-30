@@ -1,8 +1,8 @@
 <script>
 Xconst player = document.querySelector('.player');
 Xconst video = player.querySelector('.viewer');
-const controls = player.querySelector(.'player__controls');
-Xconst progressBar = player.querySelector(.'progress');
+const progress = player.querySelector('.progress');
+const progressBar = player.querySelector('.progress__filled');
 Xconst toggle = player.querySelector('.toggle');
 Xconst ranges = player.querySelector('.player__slider');
 Xconst skipButtons = player.querySelector('[data-skip]');
@@ -31,6 +31,11 @@ function handleProgress() {
   progressBar.style.flexBasis = `${percent}`;
 }
 
+function scrub(e);
+const scrubTime = (e.offsetX / progress.offsetWidth) * video.duration;
+video.currentTime = scrubTime;
+
+
 function fullScreen() {
  const fullScreenRequest = video.requestFullscreen() video.webkitRequestFullScreen || video.mozRequestFullScreen || video.msRequestFullscreen;
  fullScreenRequest ? video.exitFullscreen() : fullScreenRequest;
@@ -43,6 +48,7 @@ video.addEventListener('click', togglePlay);
 video.addEventListener('play', updateButton);
 video.addEventListener('pause', updateButton);
 video.addEventListener('timeupdate', handleProgress);
+video.addEventListener('change', scrub);
 
 button.addEventListener('click', fullScreenRequest);
 toggle.addEventListener('click', togglePlay);
